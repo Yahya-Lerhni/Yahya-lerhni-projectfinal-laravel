@@ -20,8 +20,8 @@
     </nav>
 
     <!-- Register Form Section -->
-    <div class="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-md w-full space-y-8 bg-white/90 dark:bg-gray-800/80 p-8 rounded-xl shadow-lg backdrop-blur-sm">
+    <div class="min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-md w-full space-y-8 bg-white/95 dark:bg-gray-800/95 p-8 rounded-2xl shadow-xl backdrop-blur">
             <div class="text-center mb-6">
                 <a href="{{ route('dashboard') }}" class="text-3xl font-extrabold text-gray-900 dark:text-gray-100">
                     Swi9a<span class="text-yellow-300">.com</span>

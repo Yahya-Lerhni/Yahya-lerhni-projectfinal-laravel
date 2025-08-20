@@ -55,9 +55,9 @@ class RegisteredUserController extends Controller
     if ($user->hasRole('admin')) {
         return redirect('/admin/dashboard');
     } elseif ($user->hasRole('seller')) {
-        return redirect('/seller/dashboard');
+        return redirect('/dashboard');
     } elseif ($user->hasRole('customer')) {
-        return redirect('/customer/dashboard');
+        return redirect('/dashboard');
     }
 
     // إذا ماكانش الدور معروف (احتياط)

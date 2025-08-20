@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">Add New Product</h2>
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">Edit Product</h2>
     </x-slot>
 
     <div class="py-6">
@@ -23,32 +23,31 @@
                     </div>
                 @endif
 
-                <form method="POST" action="{{ route('seller.products.store') }}" enctype="multipart/form-data" class="space-y-8">
+                <form method="POST" action="{{ route('seller.products.update', $product) }}" enctype="multipart/form-data" class="space-y-8">
                     @csrf
+                    @method('PUT')
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Product Name</label>
-                            <input id="name" name="name" type="text" required value="{{ old('name') }}" class="mt-2 block w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 focus:border-indigo-500 focus:ring-indigo-500" placeholder="e.g., Wireless Headphones" />
+                            <input id="name" name="name" type="text" required value="{{ old('name', $product->name) }}" class="mt-2 block w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 focus:border-indigo-500 focus:ring-indigo-500" />
                         </div>
 
                         <div>
                             <label for="price" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Price</label>
-                            <input id="price" name="price" type="number" min="0" step="1" required value="{{ old('price') }}" class="mt-2 block w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 focus:border-indigo-500 focus:ring-indigo-500" placeholder="Enter price (integer)" />
-                            <p class="mt-1 text-xs text-gray-500">Note: price is stored as an integer.</p>
+                            <input id="price" name="price" type="number" min="0" step="1" required value="{{ old('price', $product->price) }}" class="mt-2 block w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 focus:border-indigo-500 focus:ring-indigo-500" />
                         </div>
 
                         <div>
                             <label for="quantity" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Quantity</label>
-                            <input id="quantity" name="quantity" type="number" min="0" step="1" required value="{{ old('quantity') }}" class="mt-2 block w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 focus:border-indigo-500 focus:ring-indigo-500" placeholder="Available stock" />
+                            <input id="quantity" name="quantity" type="number" min="0" step="1" required value="{{ old('quantity', $product->quantity) }}" class="mt-2 block w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 focus:border-indigo-500 focus:ring-indigo-500" />
                         </div>
 
                         <div>
                             <label for="category_id" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Category</label>
                             <select id="category_id" name="category_id" required class="mt-2 block w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 focus:border-indigo-500 focus:ring-indigo-500">
-                                <option value="">Select a category</option>
                                 @foreach (\App\Models\Category::all() as $category)
-                                    <option value="{{ $category->id }}" @selected(old('category_id')==$category->id)>{{ $category->name }}</option>
+                                    <option value="{{ $category->id }}" @selected(old('category_id', $product->category_id)==$category->id)>{{ $category->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -56,40 +55,30 @@
 
                     <div>
                         <label for="description" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Description</label>
-                        <textarea id="description" name="description" rows="4" required class="mt-2 block w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 focus:border-indigo-500 focus:ring-indigo-500" placeholder="Write a short, clear description of the product">{{ old('description') }}</textarea>
+                        <textarea id="description" name="description" rows="4" required class="mt-2 block w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 focus:border-indigo-500 focus:ring-indigo-500">{{ old('description', $product->description) }}</textarea>
                     </div>
 
                     <div>
                         <label for="image" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Product Image</label>
                         <div class="mt-2 flex items-center gap-4">
-                            <label class="flex h-28 w-full cursor-pointer items-center justify-center rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-700 text-gray-500 hover:border-indigo-400 dark:hover:border-indigo-500">
-                                <input id="image" name="image" type="file" accept="image/*" class="sr-only" onchange="previewImage(event)" />
-                                <span class="text-sm">Click to upload or drag and drop</span>
-                            </label>
-                            <img id="preview" class="hidden h-28 w-28 rounded-lg object-cover ring-1 ring-gray-200 dark:ring-gray-700" alt="Preview" />
+                            @if($product->image)
+                                <img src="{{ asset('storage/' . $product->image) }}" class="h-28 w-28 rounded-lg object-cover ring-1 ring-gray-200 dark:ring-gray-700" alt="Current Image" />
+                            @endif
+                            <input id="image" name="image" type="file" accept="image/*" class="block w-full text-sm text-gray-900 dark:text-gray-100" />
                         </div>
-                        <p class="mt-1 text-xs text-gray-500">JPG, PNG up to 2MB.</p>
+                        <p class="mt-1 text-xs text-gray-500">Leave blank to keep the current image.</p>
                     </div>
 
                     <div class="flex items-center justify-end gap-3">
                         <a href="{{ route('dashboard') }}" class="inline-flex items-center rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">Cancel</a>
                         <button type="submit" class="inline-flex items-center rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                            Create Product
+                            Save Changes
                         </button>
                     </div>
                 </form>
-
-                <script>
-                    function previewImage(event) {
-                        const file = event.target.files && event.target.files[0];
-                        const preview = document.getElementById('preview');
-                        if (!file) { preview.classList.add('hidden'); preview.src = ''; return; }
-                        const reader = new FileReader();
-                        reader.onload = (e) => { preview.src = e.target.result; preview.classList.remove('hidden'); };
-                        reader.readAsDataURL(file);
-                    }
-                </script>
             </div>
         </div>
     </div>
 </x-app-layout>
+
+

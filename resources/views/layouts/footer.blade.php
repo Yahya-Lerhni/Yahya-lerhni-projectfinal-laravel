@@ -14,7 +14,7 @@
         <div>
             <h3 class="font-semibold mb-4">روابط سريعة</h3>
             <ul class="space-y-2 text-gray-100/90">
-                <li><a href="{{ route('dashboard') }}" class="hover:text-yellow-300 transition">الرئيسية</a></li>
+                <li><a href="{{ url('/') }}" class="hover:text-yellow-300 transition">الرئيسية</a></li>
                 <li><a href="{{ route('login') }}" class="hover:text-yellow-300 transition">تسجيل الدخول</a></li>
                 <li><a href="{{ route('register') }}" class="hover:text-yellow-300 transition">تسجيل حساب جديد</a></li>
                 <li><a href="#" class="hover:text-yellow-300 transition">اتصل بنا</a></li>

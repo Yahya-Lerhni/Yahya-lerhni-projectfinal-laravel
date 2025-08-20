@@ -23,24 +23,12 @@ Route::get('/dashboard', function () {
 
 // مسارات خاصة بالأدمن فقط
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/admin/dashboard', function () {
-        return view('admin.admin-dashboard');
-    })->name('admin.dashboard');
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 });
 
-// مسارات خاصة بالبائع (seller) أو الأدمن
-Route::middleware(['auth', 'role:seller|admin'])->group(function () {
-    Route::get('/seller/dashboard', function () {
-        return view('seller.seller-dashboard');
-    })->name('seller.dashboard');
-});
 
-// مسارات خاصة بالزبون (customer) أو الأدمن
-Route::middleware(['auth', 'role:customer|admin'])->group(function () {
-    Route::get('/customer/dashboard', function () {
-        return view('customer.customer-dashboard');
-    })->name('customer.dashboard');
-});
+
+
 
 // مسارات البروفايل
 Route::middleware('auth')->group(function () {
@@ -52,12 +40,18 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'role:seller'])->prefix('seller')->name('seller.')->group(function () {
     Route::get('products/create', [SellerProductController::class, 'create'])->name('products.create');
     Route::post('products', [SellerProductController::class, 'store'])->name('products.store');
+    Route::get('products/{product}/edit', [SellerProductController::class, 'edit'])->name('products.edit');
+    Route::put('products/{product}', [SellerProductController::class, 'update'])->name('products.update');
+    Route::delete('products/{product}', [SellerProductController::class, 'destroy'])->name('products.destroy');
 });
 // admin accept product
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('products/pending', [AdminController::class, 'index'])->name('products.pending');
     Route::patch('products/{product}/approve', [AdminController::class, 'approve'])->name('products.approve');
     Route::patch('products/{product}/reject', [AdminController::class, 'reject'])->name('products.reject');
+    Route::get('products/{product}/edit', [AdminController::class, 'editProduct'])->name('products.edit');
+    Route::put('products/{product}', [AdminController::class, 'updateProduct'])->name('products.update');
+    Route::delete('products/{product}', [AdminController::class, 'destroyProduct'])->name('products.destroy');
 });
 // dashboard
 Route::middleware(['auth'])->group(function () {
@@ -97,7 +91,12 @@ Route::middleware(['auth', 'role:customer'])->group(function () {
 // Chatify will use its default routes
 // The package automatically registers routes at /chatify with proper middleware
 
-
+Route::get('/about', function () {
+    return view('pages.about');
+});
+Route::get('/contact', function () {
+    return view('pages.contact');
+});
 
 
 

@@ -20,8 +20,8 @@
     </nav>
 
     <!-- Login Form Section -->
-    <div class="min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500  dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-md w-full space-y-8 bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg">
+    <div class="min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-md w-full space-y-8 bg-white/95 dark:bg-gray-800/95 p-8 rounded-2xl shadow-xl backdrop-blur">
             <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-gray-100">
                 تسجيل الدخول
             </h2>
@@ -55,14 +55,15 @@
                 </div>
 
                 <!-- Buttons -->
-                <div class="flex items-center justify-end mt-4">
+                <div class="flex items-center justify-between mt-4">
+                    <a href="{{ route('register') }}" class="text-sm text-purple-700 dark:text-purple-300 hover:underline">Create account</a>
                     @if (Route::has('password.request'))
                         <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
                             {{ __('Forgot your password?') }}
                         </a>
                     @endif
 
-                    <x-primary-button class="ms-3">
+                    <x-primary-button class="ms-3 bg-purple-600 hover:bg-purple-700">
                         {{ __('Log in') }}
                     </x-primary-button>
                 </div>

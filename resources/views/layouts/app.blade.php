@@ -17,23 +17,36 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+        <div class="min-h-screen  bg-gray-100 dark:bg-gray-900">
             @include('layouts.navigation')
 
-            <!-- Page Heading -->
-            @isset($header)
-                <header class="bg-white dark:bg-gray-800 shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endisset
+            <!-- Global Search & Category Filter (shown when $categories is available or when $showSearchBar is true) -->
+            @includeWhen(isset($categories) || ($showSearchBar ?? false), 'layouts.topbar-filter')
 
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
-             @include('layouts.footer')
+            <!-- Content with Sidebar Layout -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 grid grid-cols-1 md:grid-cols-12 gap-6">
+                <!-- Sidebar -->
+                <aside class="hidden md:block md:col-span-3 lg:col-span-3">
+                    @include('layouts.sidebar')
+                </aside>
+
+                <!-- Main Content -->
+                <div class="md:col-span-9 lg:col-span-9 space-y-6">
+                    @isset($header)
+                        <header class="bg-white dark:bg-gray-800 shadow rounded-xl">
+                            <div class="py-6 px-6">
+                                {{ $header }}
+                            </div>
+                        </header>
+                    @endisset
+
+                    <main>
+                        {{ $slot }}
+                    </main>
+                </div>
+            </div>
+
+            @include('layouts.footer')
         </div>
     </body>
 </html>

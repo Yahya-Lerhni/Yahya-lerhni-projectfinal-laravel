@@ -38,9 +38,9 @@ class AuthenticatedSessionController extends Controller
         if ($user->hasRole('admin')) {
             return redirect()->intended('/admin/dashboard');
         } elseif ($user->hasRole('seller')) {
-            return redirect()->intended('/seller/dashboard');
+            return redirect()->intended('/dashboard');
         } elseif ($user->hasRole('customer')) {
-            return redirect()->intended('/customer/dashboard');
+            return redirect()->intended('/dashboard');
         }
 
         // fallback

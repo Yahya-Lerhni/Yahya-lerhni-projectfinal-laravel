@@ -11,6 +11,7 @@ class DashboardController extends Controller
 {
     public function index(Request $request)
     {
+        /** @var \App\Models\User $user */
         $user = Auth::user();
 
         // البداية: query
@@ -34,7 +35,15 @@ class DashboardController extends Controller
             $query->where('category_id', $request->category);
         }
 
-        $products = $query->get();
+        // Price range filter
+        if ($request->filled('price_min')) {
+            $query->where('price', '>=', (int) $request->price_min);
+        }
+        if ($request->filled('price_max')) {
+            $query->where('price', '<=', (int) $request->price_max);
+        }
+
+        $products = $query->paginate(15)->withQueryString();
         $categories = Category::all();
 
         return view('dashboard', compact('products', 'categories'));
