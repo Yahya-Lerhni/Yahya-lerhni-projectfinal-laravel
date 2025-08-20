@@ -69,7 +69,6 @@
         </ul>
     </div>
 
-    <!-- Promo / Help Card -->
     <div class="bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 text-white rounded-xl shadow-lg p-6">
         <h4 class="font-semibold mb-1">Need help?</h4>
         <p class="text-white/90 text-sm mb-3">Check our FAQs or contact support anytime.</p>

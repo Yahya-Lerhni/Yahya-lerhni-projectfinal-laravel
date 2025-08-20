@@ -15,7 +15,7 @@
         </div>
     </div>
 
-    <!-- Featured Products Grid (15 cards) -->
+    <!-- cards dyal product dyali -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <div class="flex items-center justify-between mb-6">
             <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Featured Products</h2>
@@ -50,7 +50,7 @@
         </div>
     </div>
 
-    <!-- CTA Banner with Background Image below products -->
+    <!-- Background image khfifa -->
     <div class="relative mt-8">
         <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1920&auto=format&fit=crop" alt="Shop CTA" class="w-full h-[260px] object-cover">
         <div class="absolute inset-0 bg-gradient-to-r from-indigo-800/80 via-purple-700/70 to-pink-600/70"></div>
@@ -66,7 +66,7 @@
         </div>
     </div>
 
-    <!-- Simple Carousel (Alpine.js) -->
+    <!-- Simple Carousel mn tailwind -->
     <div x-data="{ i: 0, slides: [
         'https://plus.unsplash.com/premium_photo-1681488262364-8aeb1b6aac56?w=1200',
         'https://plus.unsplash.com/premium_photo-1664475347754-f633cb166d13?w=1200',

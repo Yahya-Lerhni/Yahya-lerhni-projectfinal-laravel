@@ -30,7 +30,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 
 
-// مسارات البروفايل
+// profil
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -88,12 +88,12 @@ Route::middleware(['auth', 'role:customer'])->group(function () {
     Route::post('/wishlist/move-to-cart/{item}', [WishlistController::class, 'moveToCart'])->name('wishlist.moveToCart');
 });
 
-// Chatify will use its default routes
-// The package automatically registers routes at /chatify with proper middleware
 
+// page about
 Route::get('/about', function () {
     return view('pages.about');
 });
+// page contact
 Route::get('/contact', function () {
     return view('pages.contact');
 });

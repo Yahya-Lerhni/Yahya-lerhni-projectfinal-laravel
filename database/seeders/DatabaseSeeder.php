@@ -9,13 +9,13 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        // إنشاء الأدوار
+        // hado roles
         $roles = ['admin','seller','customer'];
         foreach($roles as $role){
             Role::firstOrCreate(['name' => $role]);
         }
 
-        // إنشاء Admin
+        // admin roles
         $admin = User::firstOrCreate(
             ['email' => 'admin@example.com'],
             [

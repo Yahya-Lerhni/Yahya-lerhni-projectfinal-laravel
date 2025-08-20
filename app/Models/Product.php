@@ -9,7 +9,7 @@ class Product extends Model
 {
     use HasFactory;
 
-    // الأعمدة القابلة للتعبئة
+
     protected $fillable = [
         'name',
         'description',
@@ -22,7 +22,7 @@ class Product extends Model
     ];
 
     /**
-     * العلاقة مع الـ User (Seller)
+     * User (Seller)
      */
     public function user()
     {
@@ -30,7 +30,7 @@ class Product extends Model
     }
 
     /**
-     * العلاقة مع الـ Category
+
      */
     public function category()
     {

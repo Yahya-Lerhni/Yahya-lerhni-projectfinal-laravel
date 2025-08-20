@@ -12,7 +12,7 @@ class CartItem extends Model
     protected $fillable = ['cart_id', 'product_id', 'quantity'];
 
     /**
-     * العلاقة مع المنتج
+     *
      */
     public function product()
     {
@@ -20,7 +20,7 @@ class CartItem extends Model
     }
 
     /**
-     * العلاقة مع السلة
+     *
      */
     public function cart()
     {

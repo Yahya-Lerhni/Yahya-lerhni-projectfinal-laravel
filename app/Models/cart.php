@@ -9,11 +9,11 @@ class Cart extends Model
 {
     use HasFactory;
 
-    // الأعمدة القابلة للتعبئة
+
     protected $fillable = ['customer_id'];
 
     /**
-     * العلاقة مع العناصر (Cart Items)
+     *(Cart Items)
      */
     public function items()
     {
@@ -21,7 +21,7 @@ class Cart extends Model
     }
 
     /**
-     * العلاقة مع المستخدم (العميل اللي عندو السلة)
+
      */
     public function customer()
     {
@@ -29,7 +29,6 @@ class Cart extends Model
     }
 
     /**
-     * حساب المجموع الكلي للمنتجات
      */
     public function total()
     {

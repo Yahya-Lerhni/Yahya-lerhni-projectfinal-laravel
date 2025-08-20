@@ -36,10 +36,10 @@ class WishlistController extends Controller
     }
     public function moveToCart(WishlistItem $item)
 {
-    // جلب العربة ديال الزبون
+
     $cart = Cart::firstOrCreate(['customer_id' => Auth::id()]);
 
-    // إذا كان المنتج موجود فالعربة نزادو الكمية
+
     $cartItem = $cart->items()->where('product_id', $item->product_id)->first();
     if($cartItem){
         $cartItem->increment('quantity');
@@ -47,7 +47,7 @@ class WishlistController extends Controller
         $cart->items()->create(['product_id' => $item->product_id, 'quantity' => 1]);
     }
 
-    // نحيدو المنتج من الـ Wishlist
+    
     $item->delete();
 
     return redirect()->back()->with('success', 'تم نقل المنتج للعربة.');

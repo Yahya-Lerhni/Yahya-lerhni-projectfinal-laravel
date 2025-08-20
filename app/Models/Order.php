@@ -15,13 +15,13 @@ class Order extends Model
         'status'
     ];
 
-    // علاقة مع الزبون
+    // 
     public function customer()
     {
         return $this->belongsTo(User::class, 'customer_id');
     }
 
-    // علاقة مع المنتج
+    //
     public function product()
     {
         return $this->belongsTo(Product::class);

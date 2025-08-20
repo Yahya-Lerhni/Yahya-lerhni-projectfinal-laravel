@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
-    // عرض جميع الطلبات (Seller)
+    // (Seller)
     public function index()
     {
         $sellerId = Auth::id();
@@ -22,14 +22,14 @@ class OrderController extends Controller
         return view('orders.index', compact('orders'));
     }
 
-    // تغيير حالة الطلب
+    // nchanger order statut
     public function updateStatus(Request $request, Order $order)
     {
         $request->validate([
             'status' => 'required|in:pending,checked,arrived'
         ]);
 
-        // Authorization: ensure the authenticated seller owns the product in this order
+
         $order->loadMissing('product');
         if (!$order->product || $order->product->user_id !== Auth::id()) {
             abort(403, 'You are not authorized to update this order.');
@@ -37,7 +37,7 @@ class OrderController extends Controller
 
         $order->update(['status' => $request->status]);
 
-        // إرسال إيميل للزبون
+        // email user
         Mail::to($order->customer->email)->send(new OrderStatusUpdated($order));
 
         return redirect()->back()->with('success', "Order #{$order->id} status updated!");

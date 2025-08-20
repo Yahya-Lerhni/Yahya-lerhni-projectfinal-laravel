@@ -22,11 +22,11 @@ class CheckoutController extends Controller
         $line_items = $items->map(function ($item) {
             return [
                 'price_data' => [
-                    'currency' => 'usd', // أو MAD
+                    'currency' => 'usd',
                     'product_data' => [
                         'name' => $item->product->name,
                     ],
-                    'unit_amount' => $item->product->price * 100, // بالسنت
+                    'unit_amount' => $item->product->price * 100,
                 ],
                 'quantity' => $item->quantity,
             ];
@@ -51,16 +51,16 @@ class CheckoutController extends Controller
         if ($cart) {
             $items = $cart->items()->with('product')->get();
 
-            // إنشاء Orders لكل عنصر في العربة
+            
             foreach ($items as $item) {
                 Order::create([
                     'customer_id' => $user->id,
                     'product_id' => $item->product->id,
-                    'status' => 'pending', // الحالة الابتدائية
+                    'status' => 'pending',
                 ]);
             }
 
-            // مسح العربة بعد إنشاء Orders
+
             $cart->items()->delete();
         }
 

@@ -14,28 +14,28 @@ class DashboardController extends Controller
         /** @var \App\Models\User $user */
         $user = Auth::user();
 
-        // البداية: query
+        //  query
         $query = Product::with('category', 'user');
 
-        // حسب role
+        // role
         if ($user->hasRole('customer')) {
             $query->where('status', 'approved');
         } elseif ($user->hasRole('seller')) {
             $query->where('user_id', $user->id);
         }
-        // Admin يشوف كلشي => ما نضيفوش شرط
+        // Admin
 
-        // البحث بالاسم
+        // search bsmia
         if ($request->filled('search')) {
             $query->where('name', 'like', '%'.$request->search.'%');
         }
 
-        // الفلترة حسب category
+        // filter b categorie
         if ($request->filled('category')) {
             $query->where('category_id', $request->category);
         }
 
-        // Price range filter
+        // Price  filter
         if ($request->filled('price_min')) {
             $query->where('price', '>=', (int) $request->price_min);
         }

@@ -37,7 +37,7 @@ public function store(Request $request)
         'quantity' => $request->quantity,
         'image' => $path,
         'user_id' => Auth::id(),
-        'category_id' => $request->category_id, // مهم
+        'category_id' => $request->category_id,
         'status' => 'pending',
     ]);
 
@@ -47,7 +47,7 @@ public function store(Request $request)
 
 public function edit(Product $product)
 {
-    // Ensure the authenticated seller owns this product
+
     abort_if($product->user_id !== Auth::id(), 403);
     return view('seller.edit-product', compact('product'));
 }
@@ -69,7 +69,7 @@ public function update(Request $request, Product $product)
         $validated['image'] = $request->file('image')->store('products', 'public');
     }
 
-    // Reset status to pending after edit for re-approval if desired (optional)
+    
     $validated['status'] = $product->status === 'approved' ? 'pending' : $product->status;
 
     $product->update($validated);
